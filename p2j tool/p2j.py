@@ -1,13 +1,12 @@
 """
-The p2j module is authored by by Remy Karem (https://github.com/remykarem/python2jupyter).
-I copy it to this script here for automation of the python file to Jupyter notebook.
+The codes of p2j module is authored by by Remy Karem\
+(https://github.com/remykarem/python2jupyter).
+I use codes as a module for automation of the python files to Jupyter notebooks.
 """
 import os
 import sys
 import json
 import argparse
-import pathlib
-from itertools import compress
 
 # Path to directory
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -230,20 +229,3 @@ def j2p(source_filename, target_filename, overwrite):
     with open(target_filename, "a") as outfile:
         outfile.write(final)
         print("Python script {} written.".format(target_filename))
-
-def py2jupyter(directory):
-    allFiles = pathlib.Path(directory).glob('*')
-    files = [file.name for file in allFiles]
-    checkFiles = [str(file).endswith('.py') and str(file)!= 'process.py' for file in files]
-    pyFiles = list(compress(files, checkFiles))
-    for pf in pyFiles:
-        jf = pf.split('.')[0] + '.ipynb'
-        p2j(pf, jf, True)
-
-def main():
-    print('Please write down your selected directory: ')
-    directory = input()
-    py2jupyter(directory)
-
-if __name__ == "__main__":
-    main()
